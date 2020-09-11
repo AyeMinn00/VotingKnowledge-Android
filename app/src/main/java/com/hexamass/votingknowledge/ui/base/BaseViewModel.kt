@@ -9,7 +9,7 @@ import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel(val dataSource: DataSource) : ViewModel(), CoroutineScope {
 
-    private val job = Job()
+    val job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main

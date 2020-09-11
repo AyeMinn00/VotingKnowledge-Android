@@ -49,9 +49,9 @@ object ApiServiceModule {
             ssl.init(null, trustAllCerts, SecureRandom())
             val sslSocketFactory = ssl.socketFactory
             builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-            builder.hostnameVerifier(HostnameVerifier { _, _ ->
+            builder.hostnameVerifier { _, _ ->
                 true
-            })
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -59,7 +59,6 @@ object ApiServiceModule {
         builder.addNetworkInterceptor { chain ->
             val requestOrigin = chain.request()
             val request = requestOrigin.newBuilder()
-                .header("Connection", "close")
                 .method(requestOrigin.method, requestOrigin.body)
                 .build()
             return@addNetworkInterceptor chain.proceed(request)
@@ -68,7 +67,6 @@ object ApiServiceModule {
             .readTimeout(3, TimeUnit.MINUTES)
             .writeTimeout(3, TimeUnit.MINUTES)
             .retryOnConnectionFailure(true)
-
         return builder.build()
     }
 
