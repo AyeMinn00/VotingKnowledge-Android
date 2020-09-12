@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gallery"
+    app:startDestination="@+id/galleryScreen">
+
+    <fragment
+        android:id="@+id/galleryScreen"
+        android:name="com.hexamass.votingknowledge.ui.gallery.GalleryFragment"
+        android:label="Gallery"
+        tools:layout="@layout/fragment_image" />
+
+</navigation>
