@@ -12,6 +12,10 @@ class ContentDataSourceFactory(
 
     val dataSourceLiveData = MutableLiveData<ContentDataSource>()
 
+    fun setQuery(query: String) {
+        this.searchKey = query
+    }
+
     override fun create(): androidx.paging.DataSource<Int, Content> {
         val dataSource = ContentDataSource(job, dataSource, searchKey)
         dataSourceLiveData.postValue(dataSource)

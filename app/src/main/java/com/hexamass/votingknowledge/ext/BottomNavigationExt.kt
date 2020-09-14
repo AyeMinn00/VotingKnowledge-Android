@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hexamass.votingknowledge.R
-import kotlin.math.log
 
 fun BottomNavigationView.setupWithNavController(
     navGraphIds: List<Int>,
@@ -21,7 +20,6 @@ fun BottomNavigationView.setupWithNavController(
     intent: Intent
 ): LiveData<NavController> {
 
-    log("setupWithNavController")
     // Map of tags
     val graphIdToTagMap = SparseArray<String>()
     // Result. Mutable live data with the selected controlled
@@ -31,7 +29,6 @@ fun BottomNavigationView.setupWithNavController(
 
     // First create a NavHostFragment for each NavGraph ID
     navGraphIds.forEachIndexed { index, navGraphId ->
-        log("index $index")
         val fragmentTag = getFragmentTag(index)
 
         // Find or create the Navigation host fragment
@@ -44,7 +41,6 @@ fun BottomNavigationView.setupWithNavController(
 
         // Obtain its id
         val graphId = navHostFragment.navController.graph.id
-        log("obtain from navHostFragment is $graphId")
 
         if (index == 0) {
             firstFragmentGraphId = graphId
@@ -55,12 +51,10 @@ fun BottomNavigationView.setupWithNavController(
 
         // Attach or detach nav host fragment depending on whether it's the selected item.
         if (this.selectedItemId == graphId) {
-            log("selectedItemId is $graphId")
             // Update livedata with the selected graph
             selectedNavController.value = navHostFragment.navController
             attachNavHostFragment(fragmentManager, navHostFragment, index == 0)
         } else {
-            log("detach nav host frag")
             detachNavHostFragment(fragmentManager, navHostFragment)
         }
     }
@@ -72,13 +66,11 @@ fun BottomNavigationView.setupWithNavController(
 
     // When a navigation item is selected
     setOnNavigationItemSelectedListener { item ->
-        log("select bottom navi item with ${item.itemId}")
         // Don't do anything if the state is state has already been saved.
         if (fragmentManager.isStateSaved) {
             false
         } else {
             val newlySelectedItemTag = graphIdToTagMap[item.itemId]
-            log("newlySelectedItemTag $newlySelectedItemTag")
             if (selectedItemTag != newlySelectedItemTag) {
                 // Pop everything above the first fragment (the "fixed start destination")
                 fragmentManager.popBackStack(
@@ -218,13 +210,11 @@ private fun obtainNavHostFragment(
     navGraphId: Int,
     containerId: Int
 ): NavHostFragment {
-    Log.e("obtainNavHostFragment", "obtainNavHostFragment", )
     // If the Nav Host fragment exists, return it
     val existingFragment = fragmentManager.findFragmentByTag(fragmentTag) as NavHostFragment?
     existingFragment?.let { return it }
 
     // Otherwise, create it and return it.
-    Log.e("obtainNavHostFragment","create nav host frag")
     val navHostFragment = NavHostFragment.create(navGraphId)
     fragmentManager.beginTransaction()
         .add(containerId, navHostFragment, fragmentTag)

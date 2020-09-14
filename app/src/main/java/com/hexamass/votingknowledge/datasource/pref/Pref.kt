@@ -23,6 +23,6 @@ class Pref @Inject constructor(context: Application) : IPref {
     }
 
     override fun getLanguageId(): String {
-        return pref.getString(PREF_LANG, "5f1939a4c329f627d5d3d398") ?: "5f1939a4c329f627d5d3d398"
+        return pref.getString(PREF_LANG, "") ?: ""
     }
 }

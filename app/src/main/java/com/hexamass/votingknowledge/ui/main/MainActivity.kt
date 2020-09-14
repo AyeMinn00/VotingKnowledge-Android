@@ -1,5 +1,7 @@
 package com.hexamass.votingknowledge.ui.main
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.LiveData
@@ -22,9 +24,18 @@ class MainActivity : AppCompatActivity() {
 
     private var currentNavController: LiveData<NavController>? = null
 
+    companion object {
+        fun start(context: Context): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            return intent
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
         if (savedInstanceState == null)
             setupBottomNavigationBar()
     }

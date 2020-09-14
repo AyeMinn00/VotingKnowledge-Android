@@ -1,9 +1,7 @@
 package com.hexamass.votingknowledge.ui.content
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +12,7 @@ import com.hexamass.votingknowledge.R
 import com.hexamass.votingknowledge.ext.log
 import com.hexamass.votingknowledge.model.Content
 import com.hexamass.votingknowledge.model.NetworkState
+import com.hexamass.votingknowledge.ui.content.search.ContentSearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_content.*
 
@@ -23,23 +22,37 @@ class ContentFragment : Fragment() {
     private val viewModel: ContentViewModel by viewModels()
     private var adapter: ContentAdapter? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_content, container, false)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_content, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.contentSearch -> {
+                onClickSearch()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        log("onViewCreated()")
         configSwipeRefreshLayout()
         configRecyclerView()
         watchData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        log("onResume()")
     }
 
     private fun configSwipeRefreshLayout() {
@@ -67,6 +80,10 @@ class ContentFragment : Fragment() {
 
     private fun onClickContent(content: Content?) {
 
+    }
+
+    private fun onClickSearch() {
+        startActivity(ContentSearchActivity.start(requireContext()))
     }
 
     private fun watchData() {

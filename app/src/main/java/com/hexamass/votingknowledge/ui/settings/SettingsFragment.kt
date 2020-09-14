@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.hexamass.votingknowledge.R
+import com.hexamass.votingknowledge.ui.contact.ContactActivity
+import com.hexamass.votingknowledge.ui.language.LanguageActivity
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
 
@@ -15,6 +18,12 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        contact.setOnClickListener { startActivity(ContactActivity.start(requireContext())) }
+        setting.setOnClickListener { startActivity(LanguageActivity.start(requireContext())) }
     }
 
 }

@@ -1,6 +1,9 @@
 package com.hexamass.votingknowledge.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Content(
+    @SerializedName("_id")
     val id: String,
     val images: List<String>,
     val title: String,

@@ -7,6 +7,7 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.hexamass.votingknowledge.R
+import com.hexamass.votingknowledge.ext.log
 import com.hexamass.votingknowledge.model.NetworkState
 import com.hexamass.votingknowledge.model.Status
 import kotlinx.android.extensions.LayoutContainer
@@ -22,6 +23,7 @@ class NetworkStateViewHolder(
     init {
         btnRetry = view.findViewById(R.id.btnRetry)
         btnRetry?.setOnClickListener { onViewClick.invoke() }
+        progressBar = view.findViewById(R.id.progressBar)
     }
 
     override val containerView: View? get() = view
@@ -42,7 +44,7 @@ class NetworkStateViewHolder(
             return if (constraint) {
                 View.VISIBLE
             } else {
-                View.GONE
+                View.INVISIBLE
             }
         }
     }
