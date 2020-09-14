@@ -9,6 +9,7 @@ import com.hexamass.votingknowledge.model.Response
 import com.hexamass.votingknowledge.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 import com.hexamass.votingknowledge.model.Result
+import kotlinx.coroutines.delay
 import java.lang.Exception
 
 class ContactViewModel @ViewModelInject constructor(dataSource: DataSource) :
@@ -23,9 +24,9 @@ class ContactViewModel @ViewModelInject constructor(dataSource: DataSource) :
     fun getContacts() {
         launch {
             contacts.value = Response.Loading("loading")
+            delay(1000)
             try {
-                val result = dataSource.getContacts().getResult()
-                when (result) {
+                when (val result = dataSource.getContacts().getResult()) {
                     is Result.Success -> {
                         contacts.value = Response.Done(result.data)
                     }

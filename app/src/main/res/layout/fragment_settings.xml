@@ -13,8 +13,8 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="20dp"
         android:text="Contact Information"
-        android:textColor="@color/grey_900"
-        android:textSize="18sp" />
+        android:textColor="@color/grey_700"
+        android:textSize="16sp" />
 
     <View
         android:layout_width="match_parent"
@@ -30,8 +30,8 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="20dp"
         android:text="Settings"
-        android:textColor="@color/grey_900"
-        android:textSize="18sp" />
+        android:textColor="@color/grey_700"
+        android:textSize="16sp" />
 
     <View
         android:layout_width="match_parent"

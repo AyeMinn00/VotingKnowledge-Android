@@ -12,8 +12,7 @@
 
         <View android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@drawable/line_shadow"
-            />
+            android:background="@drawable/line_shadow" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"

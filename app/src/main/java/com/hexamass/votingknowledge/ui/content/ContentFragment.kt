@@ -12,6 +12,9 @@ import com.hexamass.votingknowledge.R
 import com.hexamass.votingknowledge.ext.log
 import com.hexamass.votingknowledge.model.Content
 import com.hexamass.votingknowledge.model.NetworkState
+import com.hexamass.votingknowledge.model.ParcelContent
+import com.hexamass.votingknowledge.model.createParcelContent
+import com.hexamass.votingknowledge.ui.content.detail.ContentDetailActivity
 import com.hexamass.votingknowledge.ui.content.search.ContentSearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_content.*
@@ -79,7 +82,8 @@ class ContentFragment : Fragment() {
     }
 
     private fun onClickContent(content: Content?) {
-
+        if(content == null) return
+        startActivity(ContentDetailActivity.start(requireContext(), createParcelContent(content)))
     }
 
     private fun onClickSearch() {

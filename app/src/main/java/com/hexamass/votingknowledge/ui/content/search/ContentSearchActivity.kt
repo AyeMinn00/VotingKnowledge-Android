@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hexamass.votingknowledge.R
 import com.hexamass.votingknowledge.model.Content
 import com.hexamass.votingknowledge.model.NetworkState
+import com.hexamass.votingknowledge.model.createParcelContent
 import com.hexamass.votingknowledge.ui.content.ContentAdapter
+import com.hexamass.votingknowledge.ui.content.detail.ContentDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_content.*
 import kotlinx.android.synthetic.main.toolbar_search.*
@@ -74,7 +76,8 @@ class ContentSearchActivity : AppCompatActivity() {
     }
 
     private fun onClickContent(content: Content?) {
-
+        if(content == null) return
+        startActivity(ContentDetailActivity.start(this, createParcelContent(content)))
     }
 
     private fun watchData() {

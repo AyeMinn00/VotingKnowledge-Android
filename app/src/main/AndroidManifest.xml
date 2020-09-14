@@ -24,6 +24,7 @@
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.welcome.WelcomeActivity" />
         <activity android:name=".ui.content.search.ContentSearchActivity" />
+        <activity android:name=".ui.content.detail.ContentDetailActivity" />
     </application>
 
 </manifest>

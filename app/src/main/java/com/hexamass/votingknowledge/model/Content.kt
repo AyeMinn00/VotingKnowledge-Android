@@ -1,6 +1,8 @@
 package com.hexamass.votingknowledge.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class Content(
     @SerializedName("_id")
@@ -16,3 +18,13 @@ data class Content(
 data class Contents(val contents: List<Content>)
 
 data class ResponseContents(val payload: Contents)
+
+@Parcelize
+data class ParcelContent(
+    val images: List<String>,
+    val title: String,
+    val body: String,
+    val time: String
+) : Parcelable
+
+fun createParcelContent(content : Content) = ParcelContent(content.images, content.title, content.body, content.time)

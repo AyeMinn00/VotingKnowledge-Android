@@ -9,6 +9,7 @@ import com.hexamass.votingknowledge.model.Languages
 import com.hexamass.votingknowledge.model.Response
 import com.hexamass.votingknowledge.model.Result
 import com.hexamass.votingknowledge.ui.base.BaseViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -24,6 +25,7 @@ class LanguageViewModel @ViewModelInject constructor(dataSource: DataSource) :
     fun getLanguages() {
         launch {
             languages.value = Response.Loading("loading")
+            delay(1000)
             try {
                 when (val result = dataSource.getLanguages().getResult()) {
                     is Result.Success -> {
