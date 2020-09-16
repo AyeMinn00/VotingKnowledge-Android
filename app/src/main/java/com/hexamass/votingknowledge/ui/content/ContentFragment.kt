@@ -33,6 +33,7 @@ class ContentFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        log("onCreateView")
         return inflater.inflate(R.layout.fragment_content, container, false)
     }
 
