@@ -54,7 +54,7 @@ class WelcomeActivity : AppCompatActivity() {
     private fun onClickLanguage(position: Int) {
         val item = adapter?.getLanguage(position)
         viewModel.selectLanguage(item)
-        startActivity(MainActivity.start(this))
+        startActivity(MainActivity.startByClearIntent(this))
     }
 
     private fun watchData() {

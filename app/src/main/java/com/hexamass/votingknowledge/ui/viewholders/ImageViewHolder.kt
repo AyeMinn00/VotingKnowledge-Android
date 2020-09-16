@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hexamass.votingknowledge.R
+import com.hexamass.votingknowledge.ext.log
+import com.hexamass.votingknowledge.ext.originalImageUrl
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 
@@ -23,8 +25,9 @@ class ImageViewHolder(val view: View) : RecyclerView.ViewHolder(view), LayoutCon
     }
 
     fun onBind(url: String) {
+        log(url.originalImageUrl())
         Picasso.get()
-            .load(url)
+            .load(url.originalImageUrl())
             .resize(512, 512)
             .onlyScaleDown()
             .centerInside()

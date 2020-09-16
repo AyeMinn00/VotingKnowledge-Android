@@ -38,5 +38,8 @@ class GalleryViewModel @ViewModelInject constructor(dataSource: DataSource) :
         }
     }
 
+    fun invalidateDataSet() {
+        getImageSets()
+    }
 
 }

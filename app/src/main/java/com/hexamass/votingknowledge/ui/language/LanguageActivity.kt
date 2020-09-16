@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hexamass.votingknowledge.R
+import com.hexamass.votingknowledge.model.Language
 import com.hexamass.votingknowledge.model.Response
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_language.*
@@ -66,6 +67,9 @@ class LanguageActivity : AppCompatActivity() {
             recyclerView.adapter = this
             recyclerView.layoutManager = LinearLayoutManager(this@LanguageActivity)
         }
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.invalidateDataSet()
+        }
     }
 
     private fun onClickLanguage(position: Int) {
@@ -86,7 +90,8 @@ class LanguageActivity : AppCompatActivity() {
                     progressBar.visibility = toVisibility(false)
                     swipeRefreshLayout.visibility = toVisibility(true)
                     btnRetry.visibility = toVisibility(false)
-                    adapter?.submitList(it.data?.payload)
+                    bindData(it.data?.payload)
+                    swipeRefreshLayout.isRefreshing = false
                 }
                 is Response.Error -> {
                     progressBar.visibility = toVisibility(false)
@@ -95,6 +100,16 @@ class LanguageActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun bindData(langs: List<Language>?) {
+        langs?.let { value ->
+            val id = viewModel.getSelectedLanguageId()
+            value.forEach {
+                it.isSelected = it.id == id
+            }
+            adapter?.submitList(value)
+        }
     }
 
     private fun toVisibility(constraint: Boolean): Int {

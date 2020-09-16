@@ -47,4 +47,10 @@ class LanguageViewModel @ViewModelInject constructor(dataSource: DataSource) :
         }
     }
 
+    fun getSelectedLanguageId() = dataSource.getLanguageId()
+
+    fun invalidateDataSet(){
+        getLanguages()
+    }
+
 }

@@ -52,6 +52,9 @@ class GalleryFragment : Fragment() {
             recyclerView.adapter = this
             recyclerView.layoutManager = LinearLayoutManager(activity)
         }
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.invalidateDataSet()
+        }
     }
 
     private fun onClickImageSet(item: ImageSet?) {
@@ -71,6 +74,7 @@ class GalleryFragment : Fragment() {
                     swipeRefreshLayout.visibility = toVisibility(true)
                     btnRetry.visibility = toVisibility(false)
                     adapter?.submitList(it.data?.payload)
+                    swipeRefreshLayout.isRefreshing = false
                 }
                 is Response.Error -> {
                     progressBar.visibility = toVisibility(false)

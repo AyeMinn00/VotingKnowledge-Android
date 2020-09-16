@@ -40,4 +40,8 @@ class ContactViewModel @ViewModelInject constructor(dataSource: DataSource) :
         }
     }
 
+    fun invalidateDataSet(){
+        getContacts()
+    }
+
 }

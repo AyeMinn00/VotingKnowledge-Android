@@ -67,6 +67,9 @@ class ContactActivity : AppCompatActivity() {
             recyclerView.adapter = this
             recyclerView.layoutManager = LinearLayoutManager(this@ContactActivity)
         }
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.invalidateDataSet()
+        }
     }
 
     private fun onClickContact(contact: Contact?) {
@@ -86,6 +89,7 @@ class ContactActivity : AppCompatActivity() {
                     swipeRefreshLayout.visibility = toVisibility(true)
                     btnRetry.visibility = toVisibility(false)
                     adapter?.submitList(it.data?.payload)
+                    swipeRefreshLayout.isRefreshing = false
                 }
                 is Response.Error -> {
                     progressBar.visibility = toVisibility(false)
