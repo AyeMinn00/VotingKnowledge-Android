@@ -25,7 +25,6 @@ class ImageViewHolder(val view: View) : RecyclerView.ViewHolder(view), LayoutCon
     }
 
     fun onBind(url: String) {
-        log(url.originalImageUrl())
         Picasso.get()
             .load(url.originalImageUrl())
             .resize(512, 512)

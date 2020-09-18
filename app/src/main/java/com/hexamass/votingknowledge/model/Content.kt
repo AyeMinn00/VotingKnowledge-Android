@@ -10,7 +10,6 @@ data class Content(
     val images: List<String>,
     val title: String,
     val body: String,
-    val lang: String,
     val time: String,
     var leftImageCount: String
 )

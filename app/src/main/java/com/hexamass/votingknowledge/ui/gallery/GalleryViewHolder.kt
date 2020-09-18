@@ -3,13 +3,18 @@ package com.hexamass.votingknowledge.ui.gallery
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hexamass.votingknowledge.R
+import com.hexamass.votingknowledge.ext.mediumImageUrl
+import com.hexamass.votingknowledge.ext.originalImageUrl
+import com.hexamass.votingknowledge.ext.smallImageUrl
 import com.hexamass.votingknowledge.model.ImageSet
+import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 
-class GalleryViewHolder(
+abstract class GalleryViewHolder(
     private val view: View,
     onClick: (ImageSet?) -> Unit
 ) : RecyclerView.ViewHolder(view), LayoutContainer {
@@ -17,6 +22,8 @@ class GalleryViewHolder(
     private var item: ImageSet? = null
     private var title: TextView? = null
     private var container: View? = null
+
+    abstract fun bindImages(item: ImageSet)
 
     override val containerView: View?
         get() = view
@@ -33,15 +40,110 @@ class GalleryViewHolder(
         this.item = item
         item?.let {
             title?.text = it.title
+            bindImages(it)
         }
+    }
+
+}
+
+class GalleryViewHolder1(view: View, onClick: (ImageSet?) -> Unit) :
+    GalleryViewHolder(view, onClick) {
+
+    private var imgView: ImageView? = null
+
+    init {
+        imgView = view.findViewById(R.id.imgView)
+    }
+
+    override fun bindImages(item: ImageSet) {
+        if (item.images.isNotEmpty())
+            Picasso.get().load(item.images[0]?.mediumImageUrl()).into(imgView)
     }
 
     companion object {
         fun create(parent: ViewGroup, onClick: (ImageSet?) -> Unit): GalleryViewHolder {
             val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.item_gallery, parent, false)
-            return GalleryViewHolder(view, onClick)
+            return GalleryViewHolder1(view, onClick)
+        }
+    }
+}
+
+class GalleryViewHolder2(view: View, onClick: (ImageSet?) -> Unit) :
+    GalleryViewHolder(view, onClick) {
+
+    private var imgView: ImageView? = null
+    private var imgView2: ImageView? = null
+
+    init {
+        imgView = view.findViewById(R.id.imgView1)
+        imgView2 = view.findViewById(R.id.imgView2)
+    }
+
+    override fun bindImages(item: ImageSet) {
+        if (item.images.size >= 2) {
+            Picasso.get().load(item.images[0]?.mediumImageUrl()).into(imgView)
+            Picasso.get().load(item.images[1]?.mediumImageUrl()).into(imgView2)
         }
     }
 
+    companion object {
+        fun create(parent: ViewGroup, onClick: (ImageSet?) -> Unit): GalleryViewHolder {
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_2, parent, false)
+            return GalleryViewHolder2(view, onClick)
+        }
+    }
+}
+
+class GalleryViewHolder3(view: View, onClick: (ImageSet?) -> Unit) :
+    GalleryViewHolder(view, onClick) {
+
+    private var imgView: ImageView? = null
+    private var imgView2: ImageView? = null
+    private var imgView3: ImageView? = null
+
+    init {
+        imgView = view.findViewById(R.id.imgView1)
+        imgView2 = view.findViewById(R.id.imgView2)
+        imgView3 = view.findViewById(R.id.imgView3)
+    }
+
+    override fun bindImages(item: ImageSet) {
+        if (item.images.size >= 3) {
+            Picasso.get().load(item.images[0]?.mediumImageUrl()).into(imgView)
+            Picasso.get().load(item.images[1]?.mediumImageUrl()).into(imgView2)
+            Picasso.get().load(item.images[2]?.mediumImageUrl()).into(imgView3)
+        }
+    }
+
+    companion object {
+        fun create(parent: ViewGroup, onClick: (ImageSet?) -> Unit): GalleryViewHolder {
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_3, parent, false)
+            return GalleryViewHolder3(view, onClick)
+        }
+    }
+}
+
+class GalleryViewHolder4(view: View, onClick: (ImageSet?) -> Unit) :
+    GalleryViewHolder(view, onClick) {
+
+    private var tv: TextView? = null
+
+    init {
+        tv = view.findViewById(R.id.labelImageLeftCount)
+    }
+
+    override fun bindImages(item: ImageSet) {
+        tv?.text = item.imageLeftCount
+    }
+
+    companion object {
+        fun create(parent: ViewGroup, onClick: (ImageSet?) -> Unit): GalleryViewHolder {
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_3, parent, false)
+            return GalleryViewHolder4(view, onClick)
+        }
+    }
 }

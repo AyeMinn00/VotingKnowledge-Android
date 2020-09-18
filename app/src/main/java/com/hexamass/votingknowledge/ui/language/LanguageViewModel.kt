@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.hexamass.votingknowledge.datasource.DataSource
 import com.hexamass.votingknowledge.ext.getResult
+import com.hexamass.votingknowledge.ext.log
 import com.hexamass.votingknowledge.model.Language
 import com.hexamass.votingknowledge.model.Languages
 import com.hexamass.votingknowledge.model.Response
@@ -36,6 +37,7 @@ class LanguageViewModel @ViewModelInject constructor(dataSource: DataSource) :
                     }
                 }
             } catch (e: Exception) {
+                log(e.localizedMessage ?: "unknown error")
                 languages.value = Response.Error(e)
             }
         }

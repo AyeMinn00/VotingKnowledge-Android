@@ -3,12 +3,14 @@ package com.hexamass.votingknowledge.di
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.hexamass.votingknowledge.constants.ApiEndpoint
 import com.hexamass.votingknowledge.datasource.remote.ApiService
+import com.hexamass.votingknowledge.ext.log
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.SecureRandom
@@ -52,9 +54,10 @@ object ApiServiceModule {
                 true
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            log(e.localizedMessage ?: "unknown https")
         }
-
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
         builder.addNetworkInterceptor { chain ->
             val requestOrigin = chain.request()
             val request = requestOrigin.newBuilder()
@@ -62,6 +65,7 @@ object ApiServiceModule {
                 .build()
             return@addNetworkInterceptor chain.proceed(request)
         }
+            .addInterceptor(logging)
             .addNetworkInterceptor(StethoInterceptor())
             .readTimeout(3, TimeUnit.MINUTES)
             .writeTimeout(3, TimeUnit.MINUTES)

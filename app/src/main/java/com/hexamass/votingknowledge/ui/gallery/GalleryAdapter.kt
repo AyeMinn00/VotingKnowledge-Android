@@ -8,8 +8,18 @@ import com.hexamass.votingknowledge.model.ImageSet
 class GalleryAdapter(private val onClick: (ImageSet?) -> Unit) :
     ListAdapter<ImageSet, GalleryViewHolder>(diffCallback) {
 
+    override fun getItemViewType(position: Int): Int {
+        return getItem(position).viewHolderType
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
-        return GalleryViewHolder.create(parent, onClick)
+        return when (viewType) {
+            1 -> GalleryViewHolder1.create(parent, onClick)
+            2 -> GalleryViewHolder2.create(parent, onClick)
+            3 -> GalleryViewHolder3.create(parent, onClick)
+            4 -> GalleryViewHolder4.create(parent, onClick)
+            else -> GalleryViewHolder1.create(parent, onClick)
+        }
     }
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {

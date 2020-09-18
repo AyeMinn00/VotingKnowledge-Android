@@ -8,10 +8,10 @@ fun String.originalImageUrl(): String {
     return "$IMG_ORIGINAL_URL$this"
 }
 
-fun String.mediumImageUrl(name: String): String {
-    return "$IMG_MEDIUM_URL$name"
+fun String.mediumImageUrl(): String {
+    return "$IMG_MEDIUM_URL$this"
 }
 
-fun String.smallImageUrl(name: String): String {
-    return "$IMG_SMALL_URL$name"
+fun String.smallImageUrl(): String {
+    return "$IMG_SMALL_URL$this"
 }

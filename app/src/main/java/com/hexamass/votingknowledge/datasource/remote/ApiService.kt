@@ -30,7 +30,7 @@ interface ApiService {
     @GET("imgSet/lang/{langId}")
     fun getImageSets(@Path("langId") langId : String) : Deferred<Response<Gallery>>
 
-    @GET("language")
+    @GET("language/")
     fun getLanguages() : Deferred<Response<Languages>>
 
     @GET("contact")

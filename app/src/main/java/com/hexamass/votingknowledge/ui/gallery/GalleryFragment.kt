@@ -1,6 +1,7 @@
 package com.hexamass.votingknowledge.ui.gallery
 
 import android.os.Bundle
+import android.os.Parcel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hexamass.votingknowledge.R
 import com.hexamass.votingknowledge.model.ImageSet
+import com.hexamass.votingknowledge.model.ParcelImages
 import com.hexamass.votingknowledge.model.Response
+import com.hexamass.votingknowledge.model.formatImageSet
+import com.hexamass.votingknowledge.ui.gallery.detail.GalleryDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_content.*
 import kotlinx.android.synthetic.main.fragment_image.*
@@ -58,7 +62,9 @@ class GalleryFragment : Fragment() {
     }
 
     private fun onClickImageSet(item: ImageSet?) {
-
+        item?.let {
+            startActivity(GalleryDetailActivity.start(requireContext(), ParcelImages(it.images)))
+        }
     }
 
     private fun watchData() {
@@ -73,7 +79,7 @@ class GalleryFragment : Fragment() {
                     progressBar.visibility = toVisibility(false)
                     swipeRefreshLayout.visibility = toVisibility(true)
                     btnRetry.visibility = toVisibility(false)
-                    adapter?.submitList(it.data?.payload)
+                    bindGallery(it.data?.payload)
                     swipeRefreshLayout.isRefreshing = false
                 }
                 is Response.Error -> {
@@ -83,6 +89,10 @@ class GalleryFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun bindGallery(payload: List<ImageSet>?) {
+        adapter?.submitList(formatImageSet(payload))
     }
 
     private fun toVisibility(constraint: Boolean): Int {
