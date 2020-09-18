@@ -59,6 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/bg_oval"
                 android:layout_marginHorizontal="16dp"
                 app:layout_constraintDimensionRatio="h,4:3"
                 app:layout_constraintTop_toBottomOf="@id/tvDate">

@@ -33,7 +33,7 @@
         android:paddingVertical="20dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="Settings"
+        android:text="Select Language"
         android:textColor="@color/grey_700"
         android:textSize="16sp" />
 

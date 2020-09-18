@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hexamass.votingknowledge.R
+import com.hexamass.votingknowledge.ext.mediumImageUrl
 import com.hexamass.votingknowledge.ext.originalImageUrl
 import com.hexamass.votingknowledge.model.Content
 import com.squareup.picasso.Picasso
@@ -15,16 +16,13 @@ import kotlinx.android.extensions.LayoutContainer
 class ContentViewHolder(
     private val view: View,
     onClick: (Content?) -> Unit
-) : RecyclerView.ViewHolder(view), LayoutContainer {
+) : RecyclerView.ViewHolder(view) {
 
     private var item: Content? = null
     private var title: TextView? = null
     private var date: TextView? = null
     private var leftImageCount: TextView? = null
     private var imgView: ImageView? = null
-
-    override val containerView: View?
-        get() = view
 
     init {
         view.setOnClickListener {
@@ -37,13 +35,14 @@ class ContentViewHolder(
     }
 
     fun bind(item: Content?) {
+        imgView?.setImageDrawable(null)
         this.item = item
         item?.let {
             title?.text = it.title
             date?.text = it.time
             leftImageCount?.text = it.leftImageCount
             if (it.images.isNotEmpty()) {
-                Picasso.get().load(it.images[0].originalImageUrl())
+                Picasso.get().load(it.images[0].mediumImageUrl())
                     .into(imgView)
             }
         }
@@ -51,7 +50,8 @@ class ContentViewHolder(
 
     companion object {
         fun create(parent: ViewGroup, onClick: (Content?) -> Unit): ContentViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_content, parent, false)
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_content, parent, false)
             return ContentViewHolder(view, onClick)
         }
     }

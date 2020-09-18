@@ -10,6 +10,7 @@ import com.hexamass.votingknowledge.model.NetworkState
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import com.hexamass.votingknowledge.model.Result
+import com.hexamass.votingknowledge.model.formatContent
 
 
 class ContentDataSource(
@@ -42,7 +43,7 @@ class ContentDataSource(
                         retry = null
                         networkStateLiveData.postValue(NetworkState.LOADED)
                         result.data?.let {
-                            callback.onResult(it.payload.contents, null, PAGE + 1 )
+                            callback.onResult(formatContent(it.payload.contents), null, PAGE + 1)
                             if (it.payload.contents.isNotEmpty())
                                 networkStateLiveData.postValue(NetworkState.LOADED)
                         }
@@ -77,7 +78,7 @@ class ContentDataSource(
                         retry = null
                         networkStateLiveData.postValue(NetworkState.LOADED)
                         result.data?.let {
-                            callback.onResult(it.payload.contents, params.key + 1)
+                            callback.onResult(formatContent(it.payload.contents), params.key + 1)
                             if (it.payload.contents.isNotEmpty())
                                 networkStateLiveData.postValue(NetworkState.LOADED)
                         }

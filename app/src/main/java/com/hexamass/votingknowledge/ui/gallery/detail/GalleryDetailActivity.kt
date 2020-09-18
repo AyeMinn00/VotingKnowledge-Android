@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.hexamass.votingknowledge.R
 import com.hexamass.votingknowledge.model.ParcelImages
 import com.hexamass.votingknowledge.ui.viewholders.ImageViewAdapter
@@ -47,6 +49,8 @@ class GalleryDetailActivity : AppCompatActivity() {
     }
 
     private fun configViews() {
+        val snap = PagerSnapHelper()
+        snap.attachToRecyclerView(recyclerView)
         val decoration = DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL)
         decoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider)!!)
         recyclerView.addItemDecoration(decoration)

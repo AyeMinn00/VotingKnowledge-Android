@@ -18,6 +18,16 @@ data class Contents(val contents: List<Content>)
 
 data class ResponseContents(val payload: Contents)
 
+fun formatContent(contents: List<Content>): List<Content> {
+    contents.forEach {
+        val size = it.images.size
+        if (size > 1) {
+            it.leftImageCount = "+ ${size - 1} more"
+        }
+    }
+    return contents
+}
+
 @Parcelize
 data class ParcelContent(
     val images: List<String>,
@@ -26,4 +36,5 @@ data class ParcelContent(
     val time: String
 ) : Parcelable
 
-fun createParcelContent(content : Content) = ParcelContent(content.images, content.title, content.body, content.time)
+fun createParcelContent(content: Content) =
+    ParcelContent(content.images, content.title, content.body, content.time)
