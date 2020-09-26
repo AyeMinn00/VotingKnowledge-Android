@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".ui.contact.ContactActivity" />
         <activity android:name=".ui.language.LanguageActivity" />
-        <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.main.MainActivity" android:label="Content"/>
         <activity android:name=".ui.welcome.WelcomeActivity" />
         <activity android:name=".ui.content.search.ContentSearchActivity" />
         <activity android:name=".ui.content.detail.ContentDetailActivity" />

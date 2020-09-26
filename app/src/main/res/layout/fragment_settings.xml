@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/product_sans"
         android:paddingHorizontal="16dp"
         android:paddingVertical="20dp"
-        android:clickable="true"
-        android:focusable="true"
         android:text="Contact Information"
         android:textColor="@color/grey_700"
         android:textSize="16sp" />
@@ -28,11 +28,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/product_sans"
         android:paddingHorizontal="16dp"
         android:paddingVertical="20dp"
-        android:clickable="true"
-        android:focusable="true"
         android:text="Select Language"
         android:textColor="@color/grey_700"
         android:textSize="16sp" />
@@ -41,5 +41,13 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@drawable/divider" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/product_sans"
+        android:gravity="center|bottom"
+        android:paddingBottom="32dp"
+        android:text="Powered By Hexa Mass" />
 
 </LinearLayout>
